@@ -122,7 +122,7 @@ const RegisterPage: NextPage<TProps> = () => {
             Register
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)} autoComplete='off' noValidate>
-            <Box sx={{ mt: 2, width: "300px" }}>
+            <Box sx={{ mt: 2, width: '300px' }}>
               <Controller
                 control={control}
                 rules={{
@@ -145,7 +145,7 @@ const RegisterPage: NextPage<TProps> = () => {
               />
             </Box>
 
-            <Box sx={{ mt: 2, width: "300px" }}>
+            <Box sx={{ mt: 2, width: '300px' }}>
               <Controller
                 control={control}
                 rules={{
@@ -182,7 +182,7 @@ const RegisterPage: NextPage<TProps> = () => {
               />
             </Box>
 
-            <Box sx={{ mt: 2, width: "300px" }}>
+            <Box sx={{ mt: 2, width: '300px' }}>
               <Controller
                 control={control}
                 rules={{
@@ -224,7 +224,14 @@ const RegisterPage: NextPage<TProps> = () => {
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
               <Typography>Do you have already an account?</Typography>
-              <Link href='/login'>Login</Link>
+              <Link
+                href='/login'
+                style={{
+                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                }}
+              >
+                Login
+              </Link>
             </Box>
             <Typography sx={{ textAlign: 'center', mt: 2, mb: 2 }}>Or</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
