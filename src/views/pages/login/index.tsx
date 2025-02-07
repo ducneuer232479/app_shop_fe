@@ -1,11 +1,11 @@
-// Import Next
+// ** Import Next
 import { NextPage } from 'next'
 import Image from 'next/image'
 
-// Import React
+// ** Import React
 import { useState } from 'react'
 
-// Import MUI
+// ** Import MUI
 import {
   Box,
   Button,
@@ -18,22 +18,25 @@ import {
   useTheme
 } from '@mui/material'
 
-// Import component
+// ** Import component
 import CustomTextField from 'src/components/text-field'
 import Icon from 'src/components/Icon'
 
-// form
+// ** Form
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-// Configs
+// ** Configs
 import { EMAIL_REG, PASSWORD_REG } from 'src/configs/regex'
 
-// Images
+// ** Images
 import LoginLight from '/public/images/login-light.png'
 import LoginDark from '/public/images/login-dark.png'
 import Link from 'next/link'
+
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
@@ -43,11 +46,14 @@ type TDefaultValue = {
 }
 
 const LoginPage: NextPage<TProps> = () => {
-  // State
+  // ** State
   const [showPassword, setShowPassword] = useState(false)
   const [isRemember, setIsRemember] = useState(false)
 
-  // Theme
+  // ** Context
+  const { login } = useAuth()
+
+  // ** Theme
   const theme = useTheme()
 
   const schema = yup.object().shape({
@@ -74,7 +80,9 @@ const LoginPage: NextPage<TProps> = () => {
   })
 
   const onSubmit = (data: TDefaultValue) => {
-    console.log('data', data)
+    if (!Object.keys(errors).length) {
+      login({ ...data, rememberMe: isRemember })
+    }
   }
 
   return (
@@ -106,7 +114,7 @@ const LoginPage: NextPage<TProps> = () => {
           src={theme.palette.mode === 'light' ? LoginLight : LoginDark}
           alt='Login image'
           style={{
-            height: 'auto',
+            height: '530px',
             width: 'auto'
           }}
         />
@@ -208,7 +216,7 @@ const LoginPage: NextPage<TProps> = () => {
               <Link
                 href='/register'
                 style={{
-                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  color: theme.palette.primary.main
                 }}
               >
                 Register
@@ -220,7 +228,7 @@ const LoginPage: NextPage<TProps> = () => {
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
@@ -236,7 +244,7 @@ const LoginPage: NextPage<TProps> = () => {
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'

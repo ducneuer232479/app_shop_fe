@@ -1,15 +1,8 @@
-'use client'
 import Head from 'next/head'
-import { Box, useTheme } from '@mui/material'
-import { useSettings } from 'src/hooks/useSettings'
+import { Box } from '@mui/material'
 import CustomTextField from 'src/components/text-field'
 
 export default function Home() {
-  const theme = useTheme()
-  const { settings } = useSettings()
-  console.log(theme)
-  console.log(settings)
-
   return (
     <>
       <Head>

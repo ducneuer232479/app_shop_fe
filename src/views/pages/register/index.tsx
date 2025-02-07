@@ -103,7 +103,7 @@ const RegisterPage: NextPage<TProps> = () => {
           src={theme.palette.mode === 'light' ? RegisterLight : RegisterDark}
           alt='Register image'
           style={{
-            height: 'auto',
+            height: '530px',
             width: 'auto'
           }}
         />
@@ -227,7 +227,7 @@ const RegisterPage: NextPage<TProps> = () => {
               <Link
                 href='/login'
                 style={{
-                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  color: theme.palette.primary.main
                 }}
               >
                 Login
@@ -239,7 +239,7 @@ const RegisterPage: NextPage<TProps> = () => {
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
@@ -255,7 +255,7 @@ const RegisterPage: NextPage<TProps> = () => {
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
