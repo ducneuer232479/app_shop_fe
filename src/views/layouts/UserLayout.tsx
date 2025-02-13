@@ -1,4 +1,7 @@
+// ** React
 import * as React from 'react'
+
+// ** Next
 import { NextPage } from 'next'
 
 // ** MUI
@@ -7,7 +10,7 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 
-// ** Layout
+// ** Views
 import VerticalLayout from './HorizontalLayout'
 import HorizontalLayout from './VerticalLayout'
 
