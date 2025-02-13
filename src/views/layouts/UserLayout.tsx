@@ -10,7 +10,7 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 
-// ** Views
+// ** Layout
 import VerticalLayout from './HorizontalLayout'
 import HorizontalLayout from './VerticalLayout'
 
