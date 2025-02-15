@@ -11,25 +11,17 @@ import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 
 // ** Layout
-import VerticalLayout from './HorizontalLayout'
-import HorizontalLayout from './VerticalLayout'
+import HorizontalLayout from './HorizontalLayout'
 
 type TProps = {
   children: React.ReactNode
 }
 
-const UserLayout: NextPage<TProps> = ({ children }) => {
-  const [open, setOpen] = React.useState(true)
-
-  const toggleDrawer = () => {
-    setOpen(!open)
-  }
-
+const LayoutNotApp: NextPage<TProps> = ({ children }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <VerticalLayout open={open} toggleDrawer={toggleDrawer} />
-      <HorizontalLayout open={open} toggleDrawer={toggleDrawer} />
+      <HorizontalLayout open={false} toggleDrawer={() => {}} isHideMenu />
       <Box
         component='main'
         sx={{
@@ -49,4 +41,4 @@ const UserLayout: NextPage<TProps> = ({ children }) => {
   )
 }
 
-export default UserLayout
+export default LayoutNotApp

@@ -1,7 +1,7 @@
 'use client'
 
 // ** React
-import { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 // ** Next
 import { NextPage } from 'next'
@@ -15,24 +15,38 @@ import IconifyIcon from 'src/components/Icon'
 // **  Config
 import { VerticalItems } from 'src/configs/layout'
 
-type TProps = {}
+type TProps = {
+  open: boolean
+}
 
-const RecursiveListItem = ({ items, level }: { items: any; level: number }) => {
-  const [openItems, setOpenItems] = useState<{ [key: string]: boolean }>({})
+type TListItems = {
+  items: any
+  level: number
+  openItems: {
+    [key: string]: boolean
+  }
+  setOpenItems: React.Dispatch<
+    React.SetStateAction<{
+      [key: string]: boolean
+    }>
+  >
+  disabled: boolean
+}
 
-  console.log('openTimes', openItems)
-
+const RecursiveListItem: NextPage<TListItems> = ({ items, level, openItems, setOpenItems, disabled }) => {
   const handleClick = (title: string) => {
-    setOpenItems(prev => ({
-      ...prev,
-      [title]: !prev[title]
-    }))
+    if (!disabled) {
+      setOpenItems(prev => ({
+        ...prev,
+        [title]: !prev[title]
+      }))
+    }
   }
 
   return items.map((item: any) => (
     <Fragment key={item.title}>
       <ListItemButton
-        sx={{ padding: `8px 10px 8px ${level * 10}px` }}
+        sx={{ padding: `8px 10px 8px ${level * level === 1 ? 28 : 20}px` }}
         onClick={() => {
           if (item.childrens) {
             handleClick(item.title)
@@ -42,8 +56,8 @@ const RecursiveListItem = ({ items, level }: { items: any; level: number }) => {
         <ListItemIcon>
           <IconifyIcon icon={item.icon} />
         </ListItemIcon>
-        <ListItemText primary={item.title} />
-        {item?.childrens && item.childrens.length > 0 && (
+        {!disabled && <ListItemText primary={item.title} />}
+        {item.childrens && item.childrens.length > 0 && (
           <>
             {openItems[item.title] ? (
               <IconifyIcon
@@ -60,21 +74,45 @@ const RecursiveListItem = ({ items, level }: { items: any; level: number }) => {
       </ListItemButton>
       {item.childrens && item.childrens.length > 0 && (
         <Collapse in={openItems[item.title]} timeout='auto' unmountOnExit>
-          <RecursiveListItem items={item.childrens} level={level + 1} />
+          <RecursiveListItem
+            items={item.childrens}
+            level={level + 1}
+            openItems={openItems}
+            setOpenItems={setOpenItems}
+            disabled={disabled}
+          />
         </Collapse>
       )}
     </Fragment>
   ))
 }
 
-const ListVerticalLayout: NextPage<TProps> = () => {
+const ListVerticalLayout: NextPage<TProps> = ({ open }) => {
+  const [openItems, setOpenItems] = useState<{ [key: string]: boolean }>({})
+
+  useEffect(() => {
+    if (!open) {
+      handleToggleAll()
+    }
+  }, [open])
+
+  const handleToggleAll = () => {
+    setOpenItems({})
+  }
+
   return (
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component='nav'
       aria-labelledby='nested-list-subheader'
     >
-      <RecursiveListItem items={VerticalItems} level={1} />
+      <RecursiveListItem
+        items={VerticalItems}
+        level={1}
+        disabled={!open}
+        openItems={openItems}
+        setOpenItems={setOpenItems}
+      />
     </List>
   )
 }
