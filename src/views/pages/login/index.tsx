@@ -48,7 +48,7 @@ type TDefaultValue = {
 const LoginPage: NextPage<TProps> = () => {
   // ** State
   const [showPassword, setShowPassword] = useState(false)
-  const [isRemember, setIsRemember] = useState(false)
+  const [isRemember, setIsRemember] = useState(true)
 
   // ** Context
   const { login } = useAuth()
@@ -65,8 +65,8 @@ const LoginPage: NextPage<TProps> = () => {
   })
 
   const defaultValues: TDefaultValue = {
-    email: '',
-    password: ''
+    email: 'admin@gmail.com',
+    password: 'Apple123@'
   }
 
   const {
