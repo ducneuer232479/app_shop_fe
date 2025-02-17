@@ -16,6 +16,7 @@ import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './ty
 // ** Services
 import { loginAuth } from 'src/services/auth'
 import { CONFIG_API } from 'src/configs/api'
+import { clearLocalUserData, setLocalUserData } from 'src/helpers/storage'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -57,9 +58,7 @@ const AuthProvider = ({ children }: Props) => {
             setUser({ ...response.data.data })
           })
           .catch(() => {
-            localStorage.removeItem('userData')
-            localStorage.removeItem('refreshToken')
-            localStorage.removeItem('accessToken')
+            clearLocalUserData()
             setUser(null)
             setLoading(false)
             if (!router.pathname.includes('login')) {
@@ -79,13 +78,14 @@ const AuthProvider = ({ children }: Props) => {
     loginAuth({ email: params.email, password: params.password })
       .then(async response => {
         params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access_token)
+          ? setLocalUserData(
+              JSON.stringify(response.data.user),
+              response.data.access_token,
+              response.data.refresh_token
+            )
           : null
         const returnUrl = router.query.returnUrl
-
         setUser({ ...response.data.user })
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.user)) : null
-
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
         router.replace(redirectURL as string)
@@ -98,8 +98,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleLogout = () => {
     setUser(null)
-    window.localStorage.removeItem('userData')
-    window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    clearLocalUserData()
     router.push('/login')
   }
 
