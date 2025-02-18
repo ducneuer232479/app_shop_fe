@@ -4,9 +4,6 @@ import { createContext, useEffect, useState, ReactNode } from 'react'
 // ** Next Import
 import { useRouter } from 'next/router'
 
-// ** Axios
-import axios from 'axios'
-
 // ** Config
 import authConfig from 'src/configs/auth'
 
@@ -15,7 +12,14 @@ import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './ty
 
 // ** Services
 import { loginAuth, logoutAuth } from 'src/services/auth'
+
+// ** Config
 import { CONFIG_API } from 'src/configs/api'
+
+// ** Helper
+import instanceAxios from 'src/helpers/axios'
+
+// ** Instance Axios
 import { clearLocalUserData, setLocalUserData } from 'src/helpers/storage'
 
 // ** Defaults
@@ -47,12 +51,8 @@ const AuthProvider = ({ children }: Props) => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
       if (storedToken) {
         setLoading(true)
-        await axios
-          .get(CONFIG_API.AUTH.AUTH_ME, {
-            headers: {
-              Authorization: `Bear ${storedToken}`
-            }
-          })
+        await instanceAxios
+          .get(CONFIG_API.AUTH.AUTH_ME)
           .then(async response => {
             setLoading(false)
             setUser({ ...response.data.data })
