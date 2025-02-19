@@ -19,11 +19,15 @@ import IconifyIcon from '../../../../components/Icon'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
 
 type TProps = {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UserDropdown = (props: TProps) => {
+  // ** Translation
+  const { t } = useTranslation()
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const { user, logout } = useAuth()
@@ -41,7 +45,7 @@ const UserDropdown = (props: TProps) => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Account settings'>
+        <Tooltip title={t('Account')}>
           <IconButton
             onClick={handleClick}
             size='small'
