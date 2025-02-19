@@ -1,6 +1,3 @@
-// ** Axios
-import axios from 'axios'
-
 // ** Config
 import { CONFIG_API } from 'src/configs/api'
 import instanceAxios from 'src/helpers/axios'

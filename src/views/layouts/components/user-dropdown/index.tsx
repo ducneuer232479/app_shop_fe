@@ -15,13 +15,14 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 
 // ** Components
-import IconifyIcon from '../Icon'
+import IconifyIcon from '../../../../components/Icon'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UserDropdown = (props: TProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // ** React Imports
 import { createContext, useEffect, useState, ReactNode } from 'react'
 
