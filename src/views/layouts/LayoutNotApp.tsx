@@ -43,7 +43,7 @@ const LayoutNotApp: NextPage<TProps> = ({ children }) => {
             maxWidth: 'unset !important',
             overflow: 'auto',
             maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - 32px)`,
-            padding: 0,
+            padding: '0 !important',
             borderRadius: '15px'
           }}
         >
